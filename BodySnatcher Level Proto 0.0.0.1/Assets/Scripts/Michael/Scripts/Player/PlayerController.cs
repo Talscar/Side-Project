@@ -12,8 +12,9 @@ public class PlayerController : MonoBehaviour {
     int speedcon = 0;
     public float walk = 6.2f;
     public KeyCode Sprint = KeyCode.LeftShift;
-    public float run = 2.2f; //multiplier
+    public float run = 12.4f; //multiplier
     private float movementRate = 0.0f;
+    private bool isMoving;
     Rigidbody rb;
 
 	// Use this for initialization
@@ -45,11 +46,12 @@ public class PlayerController : MonoBehaviour {
         {
             location = location + Vector3.right;//gameObject.transform.position = gameObject.transform.position + new Vector3(((walk / speedcon) * Time.deltaTime), 0, 0);
         }
-        if(location.x == location.z || location.z < 0 && location.x > 0 || location.x < 0 || location.z > 0 && Input.GetKey (moveDirection[0]) && Input.GetKey (moveDirection[2]) || Input.GetKey (moveDirection[1]) && Input.GetKey (moveDirection[3])) 
+        if(location.x == location.z || location.z < 0 && location.x > 0 || location.x < 0 || Input.GetKey (moveDirection[0]) && Input.GetKey (moveDirection[2]) || Input.GetKey (moveDirection[1]) && Input.GetKey (moveDirection[3])) 
 //Trying to smooth out the buggyness of movement. failing with the array of 0 and 2 if 3 is pressed controller breaks.
         { movementRate = movementRate / 2; }
         gameObject.transform.position = gameObject.transform.position + new Vector3(location.x * (movementRate * Time.deltaTime), location.y * (movementRate * Time.deltaTime), location.z * (movementRate * Time.deltaTime));
         Debug.Log(location);
+        isMoving = true;
     }
 
 	// Update is called once per frame
@@ -61,6 +63,9 @@ public class PlayerController : MonoBehaviour {
 
         ////////if(Input.GetKey (moveDirection[0]) || Input.GetKey (moveDirection[1]) || Input.GetKey (moveDirection[2]) || Input.GetKey (moveDirection[3]))
         ////////{ }
+        if(isMoving)
+        { }
+
         if(Input.GetKey (Sprint))
         { movementRate = run; }
         else { movementRate = walk; }
@@ -72,6 +77,8 @@ public class PlayerController : MonoBehaviour {
                 if(Input.GetKey (moveDirection[i]))
                 { icount++; speedcon = icount; MoveDirection(); }
                 i++;
+                if (i == 0)
+                { isMoving = false; }
             }
         }
         Debug.Log("No Movement...");
