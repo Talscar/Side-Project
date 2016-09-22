@@ -2,6 +2,7 @@
 using System.Collections;
 using System;
 
+//[ExecuteInEditMode]
 public class meshConstructor : IComparable<meshConstructor>
 {
     //already has the number value of the vert.
