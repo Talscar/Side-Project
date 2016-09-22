@@ -11,8 +11,14 @@ public class unityScript_meshVert : MonoBehaviour {
     float count = 0.0f;
     bool switche = true;
 
+    List<meshConstructor> vert4 = new List<meshConstructor>();
+
     public float movement = 50.0f;
 
+    void OnCollision(Collision collider)
+    {
+
+    }
     
 
 	void Start ()
@@ -25,15 +31,24 @@ public class unityScript_meshVert : MonoBehaviour {
         {
             vert4[i] = mesh.vertices.Length;
         } */
+        //vert4 = new List<meshConstructor>(capacity : vertices.Length);
         {
-                int i = 0;
-                while(i < vertices.Length)
-                {
-
-                if(i == 0)
+            int i = 0;
+            // vert4.Capacity = vertices.Length;
+            while (i < vertices.Length)
+            {
+                vert4.Add(new meshConstructor(mesh.vertices[i].x, mesh.vertices[i].y, mesh.vertices[i].z, i));
+                i++;
+                if (i == 0)
                 { break; }
-                }
-            } //end point
+            }
+            Debug.Log(vert4.Capacity);
+            ///<MESSAGE This is where the constructor determins each and every vert4 location. vert4 been the plane.mesh vert count and modifying locations.
+            /// Once infomation is recorded, you can then utilise those numbers to identify the nearest contact points and manipulate their location, or link their locations
+            /// to points on another object that will manipulate the surface. FYI, dirt and dig of a grave to manipulate and lower the earth.
+
+
+        } //end point
     }
 	
 	// Update is called once per frame
