@@ -32,9 +32,9 @@ public class m_VertCount : MonoBehaviour {
 
     public List<meshConstructor> vert4 = new List<meshConstructor>();
     public List<Constructor_VertContactGrouping> points = new List<Constructor_VertContactGrouping>();
-    Mesh mesh;
+    public Mesh mesh;
     public int LocateAndControlRayTestTemp = 5;
-    Vector3[] vertices;
+    public Vector3[] vertices;
 
     public GameObject new_Object;
     // Use this for initialization
@@ -75,21 +75,26 @@ public class m_VertCount : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    //////void Update()
+    //////{
 
-        if(MeshModifierLoop)
-        {
-            vertices[LocateAndControlRayTestTemp] = new_Object.transform.position;
+    //////    if(MeshModifierLoop)
+    //////    {
+    //////        vertices[LocateAndControlRayTestTemp] = new_Object.transform.position;
 
-            //vert4[LocateAndControlRayTestTemp] = vert4(v);
-            mesh.vertices = vertices;
-            mesh.RecalculateBounds();
-        }
+    //////        Debug.LogWarning("Pos of Vert line 85: " + vertices[LocateAndControlRayTestTemp] + ", Compare to other object: " + new_Object.transform.position);
 
-        Debug.DrawRay(new Vector3(vert4[LocateAndControlRayTestTemp].vert4_x, vert4[LocateAndControlRayTestTemp].vert4_y, vert4[LocateAndControlRayTestTemp].vert4_z), new_Object.transform.position, Color.green);
+    //////        //vert4[LocateAndControlRayTestTemp] = vert4(v);
+    //////        mesh.vertices = vertices;
+    //////        mesh.RecalculateBounds();
+    //////    }
+    //////    //vertices[LocateAndControlRayTestTemp] = transform.TransformPoint(gameObject.transform.position);
+
+    //////    Debug.DrawRay(vertices[LocateAndControlRayTestTemp], new_Object.transform.position, Color.blue); //unknown
+    //////    Debug.DrawRay(new_Object.transform.position, vertices[LocateAndControlRayTestTemp] , Color.red);
+    //////    //Debug.DrawRay(new Vector3(vert4[LocateAndControlRayTestTemp].vert4_x, vert4[LocateAndControlRayTestTemp].vert4_y, vert4[LocateAndControlRayTestTemp].vert4_z), new_Object.transform.position, Color.green);
 
         
 
-    }
+    //////}
 }

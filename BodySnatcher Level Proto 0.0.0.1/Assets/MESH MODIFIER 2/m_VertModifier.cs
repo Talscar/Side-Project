@@ -3,67 +3,40 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class m_VertModifier : MonoBehaviour {
+    public GameObject mesh_ToModify;
 
-    //public List<meshConstructor> vert4 = new List<meshConstructor>();
-    //public List<Constructor_VertContactGrouping> points = new List<Constructor_VertContactGrouping>();
-    //Mesh mesh;
-    //public int LocateAndControlRayTestTemp = 5;
+    public int index_Id = 0;
+    public int mod_Location = 0;
+    int locate = 0;
 
-    //public GameObject new_Object;
-    //// Use this for initialization
-    //void Start()
-    //{
-    //    mesh = GetComponent<MeshFilter>().mesh;
-    //    Vector3[] vertices = mesh.vertices;
+    Vector3 obj_Position;    
+    void Update()
+    {
+        locate = index_Id + mod_Location;
 
+        Debug.DrawRay(gameObject.transform.position, mesh_ToModify.GetComponent<m_VertCount>().vertices[locate], Color.magenta);
+        Debug.DrawRay(mesh_ToModify.GetComponent<m_VertCount>().vertices[locate], gameObject.transform.position, Color.magenta);
 
-    //    {
-    //        int i = 0;
-    //        Debug.Log(vert4.Count);
-    //        while (i < vertices.Length)
-    //        {
-    //            vert4.Add(new meshConstructor(vertices[i].x, vertices[i].y, vertices[i].z, i));
-    //            Debug.Log(vert4.Count + " *THEN* i count??? " + i);
-    //            vertices[i] += Vector3.up * Time.deltaTime;
-    //            //vertices[i] += Vector3.up * Time.deltaTime;
-    //            //mesh.vertices[i] += 3 * Time.deltaTime;
-    //            i++;
-    //        }
-    //        //mesh.vertices = vertices;
-    //        //mesh.RecalculateBounds();
+        Debug.DrawRay(mesh_ToModify.GetComponent<m_VertCount>().vertices[locate] , gameObject.transform.position - new Vector3(gameObject.transform.position.x, 0, gameObject.transform.position.z), Color.red);
 
+///<example        Debug.DrawRay(vertices[LocateAndControlRayTestTemp], new_Object.transform.position, Color.blue); //unknown
+///                Debug.DrawRay(new_Object.transform.position, vertices[LocateAndControlRayTestTemp], Color.red);
+/// ></example>
+/// 
 
-    //        Debug.Log(vert4.Count);
-    //        //Debug.Log(vert4.Capacity);
-    //        int ii = 0;
-    //        foreach(meshConstructor vetex in vert4)
-    //        {
-    //            Debug.Log(vetex.counter);
+        if(gameObject.transform.position != obj_Position)
+        {
+            mesh_ToModify.GetComponent<m_VertCount>().vertices[locate] = gameObject.transform.position;
 
-    //            ii++;
-    //            Debug.Log(vert4.Count + " *THEN* i count??? " + i);
-    //        }
+            Debug.LogWarning("Pos of Vert line 85: " + mesh_ToModify.GetComponent<m_VertCount>().vertices[locate] + ", Compare to other object: " + mesh_ToModify.GetComponent<m_VertCount>().gameObject.transform.position);
 
-    //    }
-    //}
+            //vert4[LocateAndControlRayTestTemp] = vert4(v);
+            mesh_ToModify.GetComponent<m_VertCount>().mesh.vertices = mesh_ToModify.GetComponent<m_VertCount>().vertices;
 
-    //// Update is called once per frame
-    //void Update () {
-
-    //    Debug.DrawRay(new Vector3(vert4[LocateAndControlRayTestTemp].vert4_x, vert4[LocateAndControlRayTestTemp].vert4_y, vert4[LocateAndControlRayTestTemp].vert4_z), new_Object.transform.position, Color.green);
-
-    //    //////////////////////////////////////mesh = GetComponent<MeshFilter>().mesh;
-    //    //////////////////////////////////////Vector3[] vertices = mesh.vertices;
-    //    //////////////////////////////////////int i = 0;
-    //    //////////////////////////////////////while (i < vertices.Length)
-    //    //////////////////////////////////////{
-    //    //////////////////////////////////////    vert4.Add(new meshConstructor(vertices[i].x, vertices[i].y, vertices[i].z, i));
-    //    //////////////////////////////////////    Debug.Log(vert4.Count + " *THEN* i count??? " + i);
-    //    //////////////////////////////////////    vertices[i] += Vector3.up * Time.deltaTime;
-    //    //////////////////////////////////////    //mesh.vertices[i] += 3 * Time.deltaTime;
-    //    //////////////////////////////////////    i++;
-    //    //////////////////////////////////////}
-    //    //////////////////////////////////////mesh.vertices = vertices;
-    //    //////////////////////////////////////mesh.RecalculateBounds();
-    //}
+            mesh_ToModify.GetComponent<m_VertCount>().mesh.RecalculateBounds();
+            obj_Position = gameObject.transform.position;
+        }
+        else { obj_Position = gameObject.transform.position; }
+    }
+    
 }
