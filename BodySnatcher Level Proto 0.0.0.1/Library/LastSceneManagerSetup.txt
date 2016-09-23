@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/Experimental Mesh modifier.unity
+- path: Assets/Scenes/Mesh Mod 2.unity
   isLoaded: 1
   isActive: 1

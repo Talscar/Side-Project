@@ -45,13 +45,13 @@ public class graveModifier : MonoBehaviour {
         ////////////////levelMesh.vertices = vetexModifier;
         ////////////////Debug.Log("Value: " + i + " ~ " + vetexModifier[0] + " *(" + vetexModifier[1] + ")* " + vetexModifier[2]);
         ////////////////Debug.Log("Modification CHECK!"); 
-        //foreach (ContactPoint vert in collider)
+        //foreach (contactpoint vert in collider)
         //{
-        //    vetexModifier[i] = vetexModifier[i] - new Vector3(-1, -1, -1)/*gameObject.transform.position*/;
+        //    vetexmodifier[i] = vetexmodifier[i] - new vector3(-1, -1, -1)/*gameobject.transform.position*/;
 
-        //    levelMesh.vertices = vetexModifier;
-        //    Debug.Log("Value: " + i + " ~ " + vetexModifier + " *(" + vert + ")* ");
-        //    Debug.Log("Modification CHECK!");    
+        //    levelmesh.vertices = vetexmodifier;
+        //    debug.log("value: " + i + " ~ " + vetexmodifier + " *(" + vert + ")* ");
+        //    debug.log("modification check!");    
         //}
 
     }

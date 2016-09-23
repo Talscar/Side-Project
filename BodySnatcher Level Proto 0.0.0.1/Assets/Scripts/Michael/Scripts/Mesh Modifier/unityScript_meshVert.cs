@@ -10,29 +10,46 @@ public class unityScript_meshVert : MonoBehaviour {
 
     //  public float time = 15f;
     //  float count = 0.0f;
+    public bool switch_OnStartCall = true;
+    public float min_CheckVertDistancex;
+    public float min_CheckVertDistancez;
     public bool bootCall = true;
-    bool switche = true;
+    public bool switche = true;
     Mesh mesh;
 
-    List<meshConstructor> vert4 = new List<meshConstructor>();
+    public List<meshConstructor> vert4 = new List<meshConstructor>();
+    public List<Constructor_VertContactGrouping> points = new List<Constructor_VertContactGrouping>();
+    //public float movement = 50.0f;
 
-    public float movement = 50.0f;
+    //void OnCollision(Collision collider)
+    //{
 
-    void OnCollision(Collision collider)
+    //}
+    
+    void OnStartCall()
     {
 
-    }
-    
+        Debug.Log(vert4[0].vert4_x + ", " + vert4[1].vert4_x);
 
+        min_CheckVertDistancex = vert4[0].vert4_x - vert4[1].vert4_x;
+        //min_CheckVertDistancez = vert4[]
+    }
     void OnCollisionStay(Collision collider)
     {
+        if (collider.gameObject.GetComponent<Selection_Modifier>() != null)
+        {
+            collider.gameObject.GetComponent<Selection_Modifier>().vCon_pmIdentity = vert4.Count; ///<ERROR this line is a mistake.
+            collider.gameObject.GetComponent<Selection_Modifier>().mModifier = gameObject;
+        }
 
+
+        int i = 0;
         foreach (ContactPoint point in collider)
         {
-            Debug.Log(point.point); //point.point is a vector 3 location for that contact point.
-            
-            
-
+ //           Debug.Log(point.point); //point.point is a vector 3 location for that contact point.
+                                    //collider.gameObject.GetComponent<Selection_Modifier>().
+          //  points.Add(new Constructor_VertContactGrouping(new Vector3(point.point.x, point.point.y, point.point.z), new Vector3(point.otherCollider), i));
+                i++;
         }
         //foreach (ContactPoint contact in collider.contacts)
         //{
@@ -60,6 +77,7 @@ public class unityScript_meshVert : MonoBehaviour {
             while (i < vertices.Length)
             {
                 vert4.Add(new meshConstructor(mesh.vertices[i].x, mesh.vertices[i].y, mesh.vertices[i].z, i));
+                if(switch_OnStartCall == true && i == 1) { switch_OnStartCall = false; OnStartCall();  }
                 i++;
                 if (i == 0)
                 { break; }

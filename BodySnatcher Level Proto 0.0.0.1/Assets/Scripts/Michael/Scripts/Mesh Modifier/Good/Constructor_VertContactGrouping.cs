@@ -9,8 +9,12 @@ public class Constructor_VertContactGrouping : IComparable<Constructor_VertConta
     public float[] point2 = {0, 0, 0};
     
 
-    public Constructor_VertContactGrouping()
-    { }
+    public Constructor_VertContactGrouping(float[] new_point1, float[] new_point2, int new_pmIdentity)
+    {
+        point1 = new_point1;
+        point2 = new_point2;
+        point_Modifier_Identity = new_pmIdentity;
+    }
 	
     public int CompareTo(Constructor_VertContactGrouping other)
     {
