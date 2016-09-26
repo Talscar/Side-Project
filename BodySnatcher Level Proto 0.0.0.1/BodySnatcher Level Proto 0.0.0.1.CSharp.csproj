@@ -71,6 +71,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\CameraFollow.cs" />
     <Compile Include="Assets\Scripts\CharacterControler.cs" />
+    <Compile Include="Assets\Scripts\MoveToNewIntersection.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Prototyping\Shaders\WorldCoordDiffuse.shader" />
