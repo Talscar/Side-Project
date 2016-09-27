@@ -50,6 +50,7 @@ public class m_VertCount : MonoBehaviour {
             while (i < vertices.Length)
             {
                 vert4.Add(new meshConstructor(vertices[i].x, vertices[i].y, vertices[i].z, i));
+                
                 //Debug.Log(vert4.Count + " *THEN* i count??? " + i);
                 //vertices[i] += Vector3.up * Time.deltaTime;
                 //vertices[i] += Vector3.up * Time.deltaTime;
