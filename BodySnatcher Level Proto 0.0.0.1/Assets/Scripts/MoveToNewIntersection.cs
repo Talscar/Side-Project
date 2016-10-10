@@ -20,23 +20,33 @@ public class MoveToNewIntersection : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log("mkay");
+
+
         Debug.DrawLine(m_agent.GetComponent<Transform>().position, m_agent.destination);
         if (m_agent.remainingDistance < 1)
         {
-            float distanceFromPlayer = Vector3.Distance(Player.position, transform.position);
-            Vector3 closest = new Vector3(Mathf.Infinity, Mathf.Infinity, Mathf.Infinity);
+            Vector3 closest = new Vector3();
+            float closestDistance = Mathf.Infinity;
             foreach (var marker in m_markers)
             {
                 if (Vector3.Distance(marker.position, m_agent.destination) > 1)
                 {
-                    if (Vector3.Distance(marker.position, m_agent.destination) < Vector3.Distance(m_agent.destination, closest))
-                    {             
+                    float weightedDistance;
+                    float distanceFromPlayer = Vector3.Distance(Player.position, marker.transform.position);
+                    weightedDistance = Vector3.Distance(transform.position, marker.position) + distanceFromPlayer;
+                    //Debug.DrawLine(transform.position, marker.position, Color.blue, 2);
+                    if (weightedDistance < closestDistance)
+                    {
                         RaycastHit hit;
-                        Physics.Linecast(m_agent.destination, marker.position, out hit);       
-                        if (hit.collider == null)
+                        Debug.DrawLine(transform.position, marker.position, Color.blue, 2);
+                        Physics.Linecast(transform.position, marker.position, out hit);
+                        //Debug.DrawLine(transform.position, hit.point, Color.red, 2);
+                        if (hit.collider == null || hit.collider.tag != "wall")
                         {
                             closest = marker.position;
-                        }                        
+                            closestDistance = weightedDistance;
+                        }
                     }
                 }
             }
