@@ -16,7 +16,24 @@ public class MoveToNewIntersection : MonoBehaviour
         m_markers = markers.ToList();
         m_markers.RemoveAt(0);
     }
-
+    float calculatePathLength(Vector3 startPos, Vector3 endPos)
+    {
+        NavMeshPath path = new NavMeshPath();
+        NavMesh.CalculatePath(startPos,endPos, NavMesh.AllAreas, path);
+        if (path.corners.Length < 2)
+        {
+            return 0;
+        }
+        Vector3 previousCorner = path.corners[0];
+        float lengthSoFar = .0f;
+        for (int i = 1; i < path.corners.Length; i++)
+        {
+            Vector3 currentCorner = path.corners[i];
+            lengthSoFar += Vector3.Distance(previousCorner, currentCorner);
+            previousCorner = currentCorner;
+        }
+        return lengthSoFar;
+    }
     // Update is called once per frame
     void Update()
     {
@@ -31,11 +48,10 @@ public class MoveToNewIntersection : MonoBehaviour
             foreach (var marker in m_markers)
             {
                 if (Vector3.Distance(marker.position, m_agent.destination) > 1)
-                {
-                    float weightedDistance;
-                    float distanceFromPlayer = Vector3.Distance(Player.position, marker.transform.position);
-                    weightedDistance = Vector3.Distance(transform.position, marker.position) + distanceFromPlayer;
-                    //Debug.DrawLine(transform.position, marker.position, Color.blue, 2);
+                {        
+                    float calculatedPathLength = calculatePathLength(transform.position, marker.position);       
+                    float distanceFromPlayer = calculatePathLength(marker.position, Player.position);
+                    float weightedDistance = calculatedPathLength + distanceFromPlayer;
                     if (weightedDistance < closestDistance)
                     {
                         RaycastHit hit;
