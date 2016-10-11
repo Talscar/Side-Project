@@ -8,6 +8,9 @@ public class MoveToNewIntersection : MonoBehaviour
     private NavMeshAgent m_agent;
     public GameObject markerContainer;
     private List<Transform> m_markers;
+    public float weightingFactor;
+    public LayerMask Walls;
+    private int currentPath;
     // Use this for initialization
     void Start()
     {
@@ -19,7 +22,7 @@ public class MoveToNewIntersection : MonoBehaviour
     float calculatePathLength(Vector3 startPos, Vector3 endPos)
     {
         NavMeshPath path = new NavMeshPath();
-        NavMesh.CalculatePath(startPos,endPos, NavMesh.AllAreas, path);
+        NavMesh.CalculatePath(startPos, endPos, NavMesh.AllAreas, path);
         if (path.corners.Length < 2)
         {
             return 0;
@@ -34,6 +37,70 @@ public class MoveToNewIntersection : MonoBehaviour
         }
         return lengthSoFar;
     }
+    void newPath()
+    {
+        Vector3 closest = new Vector3();
+        float closestDistance = Mathf.Infinity;
+        foreach (var marker in m_markers)
+        {
+            if (Vector3.Distance(marker.position, m_agent.destination) > 1)
+            {
+                float calculatedPathLength = calculatePathLength(transform.position, marker.position);
+                float distanceFromPlayer = calculatePathLength(marker.position, Player.position);
+                float weightedDistance = calculatedPathLength + distanceFromPlayer;
+                if (weightedDistance < closestDistance)
+                {
+                    bool hit = Physics.Linecast(transform.position, marker.position, Walls.value);
+                    if (!hit)
+                    {
+                        closest = marker.position;
+                        closestDistance = weightedDistance;
+                    }
+                }
+            }
+        }
+        m_agent.destination = closest;
+    }
+    void followPath()
+    {
+        m_agent.destination = m_markers[currentPath % m_markers.Count].position;
+        currentPath++;
+    }
+    void newWeightedPath()
+    {
+        List<KeyValuePair<Vector3, float>> possibleNodes = new List<KeyValuePair<Vector3, float>>();
+        float completeWeight = 0;
+        foreach (var marker in m_markers)
+        {
+            bool hit = Physics.Linecast(transform.position, marker.position, Walls.value);
+            if (!hit)
+            {
+                float weight = Vector3.Distance(transform.position, marker.position) + calculatePathLength(marker.position, Player.position);
+                possibleNodes.Add(new KeyValuePair<Vector3, float>(marker.position, weight));
+                completeWeight += weight;
+            }
+        }
+        possibleNodes.Sort((x, y) => y.Value.CompareTo(x.Value));
+        float percent = Random.Range(0, completeWeight);
+        float i = 0;
+        Vector3 target = new Vector3();
+        foreach(var marker in possibleNodes)
+        {
+            if(i >= percent)
+            {
+                m_agent.destination = target;
+                break;
+            }
+            target = marker.Key;
+            i += marker.Value;
+        }
+        //float distanceToPlayer = calculatePathLength(transform.position, Player.position);
+        //float chanceToPlayer = Random.Range(0, distanceToPlayer) / weightingFactor * 100;
+        //int thing = (int)Mathf.Round(chanceToPlayer) % possibleNodes.Count;
+        //Debug.Log(thing);
+        //m_agent.destination = possibleNodes[(int)Random.Range(0, chanceToPlayer % possibleNodes.Count)].Key;
+
+    }
     // Update is called once per frame
     void Update()
     {
@@ -43,30 +110,9 @@ public class MoveToNewIntersection : MonoBehaviour
         Debug.DrawLine(m_agent.GetComponent<Transform>().position, m_agent.destination);
         if (m_agent.remainingDistance < 1)
         {
-            Vector3 closest = new Vector3();
-            float closestDistance = Mathf.Infinity;
-            foreach (var marker in m_markers)
-            {
-                if (Vector3.Distance(marker.position, m_agent.destination) > 1)
-                {        
-                    float calculatedPathLength = calculatePathLength(transform.position, marker.position);       
-                    float distanceFromPlayer = calculatePathLength(marker.position, Player.position);
-                    float weightedDistance = calculatedPathLength + distanceFromPlayer;
-                    if (weightedDistance < closestDistance)
-                    {
-                        RaycastHit hit;
-                        Debug.DrawLine(transform.position, marker.position, Color.blue, 2);
-                        Physics.Linecast(transform.position, marker.position, out hit);
-                        //Debug.DrawLine(transform.position, hit.point, Color.red, 2);
-                        if (hit.collider == null || hit.collider.tag != "wall")
-                        {
-                            closest = marker.position;
-                            closestDistance = weightedDistance;
-                        }
-                    }
-                }
-            }
-            m_agent.destination = closest;
+            //followPath(); //will follow path 1 through n
+            //newPath(); //will path directly to player quieckest way
+            newWeightedPath(); //will go towards player if further away
         }
 
     }
