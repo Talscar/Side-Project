@@ -110,9 +110,9 @@ public class MoveToNewIntersection : MonoBehaviour
         Debug.DrawLine(m_agent.GetComponent<Transform>().position, m_agent.destination);
         if (m_agent.remainingDistance < 1)
         {
-            //followPath(); //will follow path 1 through n
+            followPath(); //will follow path 1 through n
             //newPath(); //will path directly to player quieckest way
-            newWeightedPath(); //will go towards player if further away
+            //newWeightedPath(); //will go towards player if further away(not functioning)
         }
 
     }

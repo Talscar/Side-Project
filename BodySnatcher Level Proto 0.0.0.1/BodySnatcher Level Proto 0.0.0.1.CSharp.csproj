@@ -73,6 +73,7 @@
     <Compile Include="Assets\Scripts\Cameron\CharacterControler.cs" />
     <Compile Include="Assets\Scripts\Michael\Scripts\Player\PlayerController.cs" />
     <Compile Include="Assets\Scripts\MoveToNewIntersection.cs" />
+    <Compile Include="Assets\diggable.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Prototyping\Shaders\WorldCoordDiffuse.shader" />

@@ -16,7 +16,7 @@ public class CharacterControler : MonoBehaviour
         {
             if (Input.GetButtonDown("Jump"))
             {
-                other.gameObject.GetComponentInChildren<ParticleSystem>().Play();
+                other.gameObject.GetComponent<diggable>().dig();
             }
         }
     }

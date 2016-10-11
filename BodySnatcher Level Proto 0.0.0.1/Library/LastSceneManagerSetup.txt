@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/Basic idea.unity
+- path: Assets/Scenes/digging map tests.unity
   isLoaded: 1
   isActive: 1
