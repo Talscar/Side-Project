@@ -1,0 +1,12 @@
+﻿<Properties StartupItem="BodySnatcher Level Proto 0.0.0.1.CSharp.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Michael\Scripts\Mesh Modifier\Selection_Modifier.cs">
+    <Files>
+      <File FileName="Assets\Scripts\Michael\Scripts\Mesh Modifier\Selection_Modifier.cs" Line="6" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

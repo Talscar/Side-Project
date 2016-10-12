@@ -69,18 +69,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\MESH MODIFIER 2\Custom_Shape.cs" />
-    <Compile Include="Assets\MESH MODIFIER 2\m_VertCount.cs" />
-    <Compile Include="Assets\MESH MODIFIER 2\m_VertModifier.cs" />
+    <Compile Include="Assets\Deformer.cs" />
     <Compile Include="Assets\Scripts\Cameron\CameraFollow.cs" />
     <Compile Include="Assets\Scripts\Cameron\CharacterControler.cs" />
+    <Compile Include="Assets\Scripts\Michael\Scripts\Mesh Modifier\Good\Attatch\m_VertCount.cs" />
+    <Compile Include="Assets\Scripts\Michael\Scripts\Mesh Modifier\Good\Attatch\m_VertModifier.cs" />
     <Compile Include="Assets\Scripts\Michael\Scripts\Mesh Modifier\Good\Constructor_VertContactGrouping.cs" />
     <Compile Include="Assets\Scripts\Michael\Scripts\Mesh Modifier\Good\meshConstructor.cs" />
     <Compile Include="Assets\Scripts\Michael\Scripts\Mesh Modifier\Selection_Modifier.cs" />
     <Compile Include="Assets\Scripts\Michael\Scripts\Mesh Modifier\meshCheck_Edit_Mode.cs" />
     <Compile Include="Assets\Scripts\Michael\Scripts\Mesh Modifier\unityScript_meshVert.cs" />
     <Compile Include="Assets\Scripts\Michael\Scripts\Player\PlayerController.cs" />
-    <Compile Include="Assets\Scripts\Michael\Scripts\graveModifier.cs" />
+    <Compile Include="Assets\Terrain_Vert4Pos_Creator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Prototyping\Shaders\WorldCoordDiffuse.shader" />
